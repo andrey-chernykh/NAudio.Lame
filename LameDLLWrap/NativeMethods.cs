@@ -55,17 +55,21 @@ namespace LameDLLWrap
 
 	internal static class NativeMethods
 	{
+#if _WINDOWS
 #if X64
 		const string libname = @"libmp3lame.64.dll";
 #else
 		const string libname = @"libmp3lame.32.dll";
+#endif
+#else
+		const string libname = @"libmp3lame";
 #endif
 
 #pragma warning disable IDE1006 // Naming Styles
 
 		public static readonly string BoundDLL = libname;
 
-		#region Startup/Shutdown
+#region Startup/Shutdown
 
 		/*
 		 * REQUIRED:
@@ -112,9 +116,9 @@ namespace LameDLLWrap
 			[In] size_t size
 			);
 
-		#endregion
+#endregion
 
-		#region LAME information
+#region LAME information
 		/*
 		 * OPTIONAL:
 		 * get the version number, in a string. of the form:
@@ -147,9 +151,9 @@ namespace LameDLLWrap
 		// void CDECL get_lame_version_numerical(lame_version_t *);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void get_lame_version_numerical([Out]LAMEVersion ver);
-		#endregion
+#endregion
 
-		#region Input Stream Description
+#region Input Stream Description
 		/* number of samples.  default = 2^32-1   */
 		// int CDECL lame_set_num_samples(lame_global_flags *, unsigned long);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
@@ -222,9 +226,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_get_out_samplerate(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region General control parameters
+#region General control parameters
 
 		/* 1=cause LAME to collect data for an MP3 frame analyzer. default=0 */
 		// int CDECL lame_set_analysis(lame_global_flags *, int);
@@ -361,9 +365,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_set_asm_optimizations(IntPtr context, ASMOptimizations opt, [MarshalAs(UnmanagedType.Bool)] bool val);
 
-		#endregion
+#endregion
 
-		#region Frame parameters
+#region Frame parameters
 		/* mark as copyright.  default=0 */
 		// int CDECL lame_set_copyright(lame_global_flags *, int);
 		// int CDECL lame_get_copyright(const lame_global_flags *);
@@ -409,9 +413,9 @@ namespace LameDLLWrap
 		[return: MarshalAs(UnmanagedType.Bool)]
 		internal static extern bool lame_get_strict_ISO(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region Quantization/Noise Shaping
+#region Quantization/Noise Shaping
 		/* disable the bit reservoir. For testing only. default=0 */
 		// int CDECL lame_set_disable_reservoir(lame_global_flags *, int);
 		// int CDECL lame_get_disable_reservoir(const lame_global_flags *);
@@ -474,9 +478,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_get_msfix(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region VBR control
+#region VBR control
 		/* Types of VBR.  default = vbr_off = CBR */
 		// int CDECL lame_set_VBR(lame_global_flags *, vbr_mode);
 		// vbr_mode CDECL lame_get_VBR(const lame_global_flags *);
@@ -535,9 +539,9 @@ namespace LameDLLWrap
 		[return: MarshalAs(UnmanagedType.Bool)]
 		internal static extern bool lame_get_VBR_hard_min(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region Filtering control
+#region Filtering control
 		/* freq in Hz to apply lowpass. Default = 0 = lame chooses.  -1 = disabled */
 		// int CDECL lame_set_lowpassfreq(lame_global_flags *, int);
 		// int CDECL lame_get_lowpassfreq(const lame_global_flags *);
@@ -570,9 +574,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_get_highpasswidth(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region Psychoacoustics and other advanced settings
+#region Psychoacoustics and other advanced settings
 		/* only use ATH for masking */
 		// int CDECL lame_set_ATHonly(lame_global_flags *, int);
 		// int CDECL lame_get_ATHonly(const lame_global_flags *);
@@ -689,9 +693,9 @@ namespace LameDLLWrap
 		internal static extern int lame_set_emphasis(IntPtr context, int value);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_get_emphasis(IntPtr context);
-		#endregion
+#endregion
 
-		#region Internal state variables, read only
+#region Internal state variables, read only
 		/* version  0=MPEG-2  1=MPEG-1  (2=MPEG-2.5)     */
 		// int CDECL lame_get_version(const lame_global_flags *);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
@@ -775,9 +779,9 @@ namespace LameDLLWrap
 		// float CDECL lame_get_noclipScale(const lame_global_flags *);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern float lame_get_noclipScale(IntPtr context);
-		#endregion
+#endregion
 
-		#region Processing
+#region Processing
 		/*
 	 * REQUIRED:
 	 * sets more internal configuration based on data provided above.
@@ -1104,9 +1108,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_init_bitstream(IntPtr context);
 
-		#endregion
+#endregion
 
-		#region Reporting callbacks
+#region Reporting callbacks
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int lame_set_errorf(IntPtr context, delReportFunction fn);
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
@@ -1120,9 +1124,9 @@ namespace LameDLLWrap
 		internal static extern void lame_print_internals(IntPtr context);
 
 
-		#endregion
+#endregion
 
-		#region 'printf' support for reporting functions
+#region 'printf' support for reporting functions
 		[DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
 		internal static extern int _vsnprintf_s(
 			[In, Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder str,
@@ -1139,10 +1143,10 @@ namespace LameDLLWrap
 #pragma warning restore IDE0059 // Unnecessary assignment of a value
 			return sb.ToString().Replace("\xFF", "\t");
 		}
-		#endregion
+#endregion
 
 
-		#region Decoding
+#region Decoding
 		/// <summary>required call to initialize decoder</summary>
 		/// <returns>Decoder context handle</returns>
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
@@ -1191,9 +1195,9 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern int hip_decode(IntPtr decContext, [In] byte[] mp3buf, int len, [In, Out] short[] pcm_l, [In, Out] short[] pcm_r, [Out] mp3data mp3data, out int enc_delay, out int enc_padding);
 
-		#endregion
+#endregion
 
-		#region ID3 tag support
+#region ID3 tag support
 		// utility to obtain alphabetically sorted list of genre names with numbers
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		internal static extern void id3tag_genre_list(delGenreCallback handler, IntPtr cookie);
@@ -1295,7 +1299,7 @@ namespace LameDLLWrap
 		[DllImport(libname, CallingConvention = CallingConvention.Cdecl)]
 		[return: MarshalAs(UnmanagedType.Bool)]
 		internal static extern bool lame_get_write_id3tag_automatic(IntPtr context);
-		#endregion
+#endregion
 
 #pragma warning restore IDE1006 // Naming Styles
 	}

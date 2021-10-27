@@ -37,10 +37,14 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
+#if _WINDOWS
 #if X64
 using size_t = System.UInt64;
 #else
-using size_t = System.UInt32;
+	using size_t = System.UInt32;
+#endif
+#else
+	using size_t = System.UInt32;
 #endif
 
 namespace LameDLLWrap
@@ -87,11 +91,11 @@ namespace LameDLLWrap
 			}
 		}
 
-		#region LAME context handle
+#region LAME context handle
 		private IntPtr context = IntPtr.Zero;
-		#endregion
+#endregion
 
-		#region DLL version data
+#region DLL version data
 		/// <summary>Lame Version</summary>
 		public static string LameVersion => Marshal.PtrToStringAnsi(NativeMethods.get_lame_version());
 
@@ -114,9 +118,9 @@ namespace LameDLLWrap
 			NativeMethods.get_lame_version_numerical(ver);
 			return ver;
 		}
-		#endregion
+#endregion
 
-		#region Properties
+#region Properties
 		delegate int setFunc<T>(IntPtr p, T val);
 
 		// wrapper function to simplify calling lame_set_* entry points
@@ -131,7 +135,7 @@ namespace LameDLLWrap
 			}
 		}
 
-		#region Input Stream Description
+#region Input Stream Description
 		/// <summary>Number of samples (optional)</summary>
 		public UInt64 NumSamples
 		{
@@ -174,9 +178,9 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_out_samplerate(context); }
 			set { Setter(NativeMethods.lame_set_out_samplerate, value); }
 		}
-		#endregion
+#endregion
 
-		#region General Control Parameters
+#region General Control Parameters
 		/// <summary>Enable analysis</summary>
 		public bool Analysis
 		{
@@ -269,9 +273,9 @@ namespace LameDLLWrap
 			int res = NativeMethods.lame_set_asm_optimizations(context, opt, enabled);
 			return res == 0;
 		}
-		#endregion
+#endregion
 
-		#region Frame parameters
+#region Frame parameters
 		/// <summary>Set output Copyright flag</summary>
 		public bool Copyright
 		{
@@ -302,9 +306,9 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_strict_ISO(context); }
 			set { Setter(NativeMethods.lame_set_strict_ISO, value); }
 		}
-		#endregion
+#endregion
 
-		#region Quantization/Noise Shaping
+#region Quantization/Noise Shaping
 		/// <summary>Disable the bit reservoir.</summary>
 		public bool DisableReservoir { get { return NativeMethods.lame_get_disable_reservoir(context); } set { Setter(NativeMethods.lame_set_disable_reservoir, value); } }
 		/// <summary>Set a different "best quantization" function</summary>
@@ -321,9 +325,9 @@ namespace LameDLLWrap
 		public int ExperimentalNSPsyTune { get { return NativeMethods.lame_get_exp_nspsytune(context); } set { Setter(NativeMethods.lame_set_exp_nspsytune, value); } }
 		/// <summary>Set a different "best quantization" function</summary>
 		public int MSFix { get { return NativeMethods.lame_get_msfix(context); } set { Setter(NativeMethods.lame_set_msfix, value); } }
-		#endregion
+#endregion
 
-		#region VBR Control
+#region VBR Control
 		/// <summary>Set VBR mode</summary>
 		public VBRMode VBR { get { return NativeMethods.lame_get_VBR(context); } set { Setter(NativeMethods.lame_set_VBR, value); } }
 		/// <summary>VBR quality level.  0 = highest, 9 = lowest.</summary>
@@ -340,18 +344,18 @@ namespace LameDLLWrap
 
 		/// <summary>Strictly enforce minimum bitrate.  Normall it will be violated for analog silence.</summary>
 		public bool VBRHardMin { get { return NativeMethods.lame_get_VBR_hard_min(context); } set { Setter(NativeMethods.lame_set_VBR_hard_min, value); } }
-		#endregion
+#endregion
 
-		#region Filtering control
+#region Filtering control
 #pragma warning disable 1591
 		public int LowPassFreq { get { return NativeMethods.lame_get_lowpassfreq(context); } set { Setter(NativeMethods.lame_set_lowpassfreq, value); } }
 		public int LowPassWidth { get { return NativeMethods.lame_get_lowpasswidth(context); } set { Setter(NativeMethods.lame_set_lowpasswidth, value); } }
 		public int HighPassFreq { get { return NativeMethods.lame_get_highpassfreq(context); } set { Setter(NativeMethods.lame_set_highpassfreq, value); } }
 		public int HighPassWidth { get { return NativeMethods.lame_get_highpasswidth(context); } set { Setter(NativeMethods.lame_set_highpasswidth, value); } }
 #pragma warning restore 1591
-		#endregion
+#endregion
 
-		#region Internal state variables, read only
+#region Internal state variables, read only
 #pragma warning disable 1591
 		public MPEGVersion Version { get { return NativeMethods.lame_get_version(context); } }
 		public int EncoderDelay { get { return NativeMethods.lame_get_encoder_delay(context); } }
@@ -366,11 +370,11 @@ namespace LameDLLWrap
 		public int NoClipGainChange { get { return NativeMethods.lame_get_noclipGainChange(context); } }
 		public float NoClipScale { get { return NativeMethods.lame_get_noclipScale(context); } }
 #pragma warning restore 1591
-		#endregion
+#endregion
 
-		#endregion
+#endregion
 
-		#region Methods
+#region Methods
 		/// <summary>Initialize encoder with parameters</summary>
 		/// <returns>Success/fail</returns>
 		public bool InitParams()
@@ -441,14 +445,14 @@ namespace LameDLLWrap
 			return buffer;
 		}
 
-		#endregion
+#endregion
 
 		/// <summary>Print out LAME configuration to standard output, or to registered output function</summary>
 		public void PrintConfig() { NativeMethods.lame_print_config(context); }
 		/// <summary>Print out LAME internals to standard output, or to registered output function</summary>
 		public void PrintInternals() { NativeMethods.lame_print_internals(context); }
 
-		#region Reporting function support
+#region Reporting function support
 
 		private ReportFunction rptError = null;
 		private ReportFunction rptDebug = null;
@@ -499,9 +503,9 @@ namespace LameDLLWrap
 		{
 			rptMsg = fn;
 		}
-		#endregion
+#endregion
 
-		#region ID3 tag support
+#region ID3 tag support
 		private static GenreCallback id3GenreCallback = null;
 
 		private static void ID3Genre_proxy(int index, string genre, IntPtr cookie)
@@ -678,9 +682,9 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_write_id3tag_automatic(context); }
 			set { NativeMethods.lame_set_write_id3tag_automatic(context, value); }
 		}
-		#endregion
+#endregion
 
-		#region Result value handling
+#region Result value handling
 		private int _lastLameError = 0;
 
 		/// <summary>
@@ -707,6 +711,6 @@ namespace LameDLLWrap
 		/// <returns>True if result is 0 (LAME_NOERROR), else false.</returns>
 		private bool CheckResult(int result)
 			=> CheckSuccess(result, out _lastLameError);
-		#endregion
+#endregion
 	}
 }

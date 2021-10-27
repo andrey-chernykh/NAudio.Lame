@@ -56,9 +56,6 @@ namespace NAudio.Lame
 			if (src == null)
 				return null;
 
-			// Attempt to load native DLL from default locations
-			LameDLL.LoadNativeDLL();
-
 			return Assembly.Load(src);
 		}
 	}
