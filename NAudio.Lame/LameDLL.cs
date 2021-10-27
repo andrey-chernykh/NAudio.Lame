@@ -1,4 +1,4 @@
-﻿using LameDLLWrap;
+using LameDLLWrap;
 using System;
 using System.IO;
 using System.Linq;
@@ -51,11 +51,10 @@ namespace NAudio.Lame
 		/// <summary>Utility method for Windows OS detection.</summary>
 		internal static bool IsWindowsOS => Environment.OSVersion.Platform == PlatformID.Win32NT;
 
-
 		internal static class Native
 		{
 			[DllImport("kernel32", SetLastError = true, CharSet = CharSet.Ansi)]
-			static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFilename);
+			private static extern IntPtr LoadLibrary([MarshalAs(UnmanagedType.LPStr)] string lpFilename);
 
 			private static IntPtr _hLameDll = IntPtr.Zero;
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 using NAudio.Wave;
@@ -47,10 +47,10 @@ namespace NAudio.Lame
 
 		protected byte[] _outBuffer;
 
-		long _inputByteCount = 0;
-		long _outputByteCount = 0;
+		private long _inputByteCount = 0;
+        private long _outputByteCount = 0;
 
-		delegate int delEncode();
+		private delegate int delEncode();
 		private readonly delEncode _encode = null;
 
 		// Progress
@@ -363,6 +363,7 @@ namespace NAudio.Lame
 						((int)buffer[9] & 0x7f)
 					) + 10;
 			}
+
 			_outStream.Position = id3v2TagSize;
 
 			// maybeSyncWord
@@ -438,6 +439,7 @@ namespace NAudio.Lame
 			{
 				_lame.ID3SetFieldValue($"TXXX={kv.Key}={kv.Value}");
 			}
+
 			// Set the album art if supplied
 			if (tag.AlbumArt?.Length > 0)
 				_lame.ID3SetAlbumArt(tag.AlbumArt);
@@ -599,7 +601,7 @@ namespace NAudio.Lame
 			{
 				throw new Exception("Default constructor cannot be called for ArrayUnion");
 			}
-		};
+		}
 		#endregion
 	}
 #pragma warning restore IDE1006 // Naming Styles

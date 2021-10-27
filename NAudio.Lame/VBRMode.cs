@@ -1,4 +1,4 @@
-﻿namespace NAudio.Lame
+namespace NAudio.Lame
 {
 	/// <summary>Variable Bit Rate Mode</summary>
 	public enum VBRMode : uint

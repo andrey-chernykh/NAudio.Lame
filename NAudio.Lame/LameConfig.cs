@@ -1,4 +1,4 @@
-﻿using NAudio.Wave;
+using NAudio.Wave;
 using System;
 
 namespace NAudio.Lame
@@ -154,6 +154,7 @@ namespace NAudio.Lame
 				{
 					result.VBR = LameDLLWrap.VBRMode.Default;
 				}
+
 				result.SetPreset((int)(_preset ?? LAMEPreset.STANDARD));
 			}
 

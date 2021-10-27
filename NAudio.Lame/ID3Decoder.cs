@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
@@ -121,12 +121,14 @@ namespace NAudio.Lame
                         res.UserDefinedText[udt.Key] = udt.Value;
                         break;
                     }
+
                     case "APIC":
                     {
                         var pic = frame.ParseAPIC();
                         res.AlbumArt = pic?.ImageBytes;
                         break;
                     }
+
                     default:
                         break;
                 }
@@ -194,6 +196,7 @@ namespace NAudio.Lame
                     prev = b;
                 }
             }
+
             return ProcessBuffer().ToArray();
         }
 
@@ -311,7 +314,7 @@ namespace NAudio.Lame
                 return res;
             }
 
-            delegate string delGetString(byte[] buffer, ref int offset, bool requireTeminator);
+            private delegate string delGetString(byte[] buffer, ref int offset, bool requireTeminator);
 
             private delGetString GetGetString()
             {

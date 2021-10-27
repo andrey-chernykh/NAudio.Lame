@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Text;
 
 namespace LameDLLWrap
@@ -8,7 +8,7 @@ namespace LameDLLWrap
     /// </summary>
     public static class UCS2
     {
-        static readonly byte[] _terminator = new byte[] { 0, 0 };
+        private static readonly byte[] _terminator = new byte[] { 0, 0 };
 
         /// <summary>
         /// Get UCS-2 byte sequence for the supplied string.

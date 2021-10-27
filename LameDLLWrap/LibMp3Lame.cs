@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -37,11 +37,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-#if X64
 using size_t = System.UInt64;
-#else
-using size_t = System.UInt32;
-#endif
 
 namespace LameDLLWrap
 {
@@ -117,10 +113,10 @@ namespace LameDLLWrap
 		#endregion
 
 		#region Properties
-		delegate int setFunc<T>(IntPtr p, T val);
+		private delegate int setFunc<T>(IntPtr p, T val);
 
 		// wrapper function to simplify calling lame_set_* entry points
-		void Setter<T>(setFunc<T> f, T value, string name = null)
+		private void Setter<T>(setFunc<T> f, T value, string name = null)
 		{
 			int res = f(context, value);
 			if (res != 0)
@@ -138,36 +134,42 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_num_samples(context); }
 			set { Setter(NativeMethods.lame_set_num_samples, value); }
 		}
+
 		/// <summary>Input sample rate</summary>
 		public int InputSampleRate
 		{
 			get { return NativeMethods.lame_get_in_samplerate(context); }
 			set { Setter(NativeMethods.lame_set_in_samplerate, value); }
 		}
+
 		/// <summary>Number of channels</summary>
 		public int NumChannels
 		{
 			get { return NativeMethods.lame_get_num_channels(context); }
 			set { Setter(NativeMethods.lame_set_num_channels, value); }
 		}
+
 		/// <summary>Global amplification factor</summary>
 		public float Scale
 		{
 			get { return NativeMethods.lame_get_scale(context); }
 			set { Setter(NativeMethods.lame_set_scale, value); }
 		}
+
 		/// <summary>Left channel amplification</summary>
 		public float ScaleLeft
 		{
 			get { return NativeMethods.lame_get_scale_left(context); }
 			set { Setter(NativeMethods.lame_set_scale_left, value); }
 		}
+
 		/// <summary>Right channel amplification</summary>
 		public float ScaleRight
 		{
 			get { return NativeMethods.lame_get_scale_right(context); }
 			set { Setter(NativeMethods.lame_set_scale_right, value); }
 		}
+
 		/// <summary>Output sample rate</summary>
 		public int OutputSampleRate
 		{
@@ -183,72 +185,84 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_analysis(context); }
 			set { Setter(NativeMethods.lame_set_analysis, value); }
 		}
+
 		/// <summary>Write VBR tag to MP3 file</summary>
 		public bool WriteVBRTag
 		{
 			get { return NativeMethods.lame_get_bWriteVbrTag(context); }
 			set { Setter(NativeMethods.lame_set_bWriteVbrTag, value); }
 		}
+
 		/// <summary></summary>
 		public bool DecodeOnly
 		{
 			get { return NativeMethods.lame_get_decode_only(context); }
 			set { Setter(NativeMethods.lame_set_decode_only, value); }
 		}
+
 		/// <summary>Encoding quality</summary>
 		public int Quality
 		{
 			get { return NativeMethods.lame_get_quality(context); }
 			set { Setter(NativeMethods.lame_set_quality, value); }
 		}
+
 		/// <summary>Specify MPEG channel mode, or use best guess if false</summary>
 		public MPEGMode Mode
 		{
 			get { return NativeMethods.lame_get_mode(context); }
 			set { Setter(NativeMethods.lame_set_mode, value); }
 		}
+
 		/// <summary>Force M/S mode</summary>
 		public bool ForceMS
 		{
 			get { return NativeMethods.lame_get_force_ms(context); }
 			set { Setter(NativeMethods.lame_set_force_ms, value); }
 		}
+
 		/// <summary>Use free format</summary>
 		public bool UseFreeFormat
 		{
 			get { return NativeMethods.lame_get_free_format(context); }
 			set { Setter(NativeMethods.lame_set_free_format, value); }
 		}
+
 		/// <summary>Perform replay gain analysis</summary>
 		public bool FindReplayGain
 		{
 			get { return NativeMethods.lame_get_findReplayGain(context); }
 			set { Setter(NativeMethods.lame_set_findReplayGain, value); }
 		}
+
 		/// <summary>Decode on the fly.  Search for the peak sample.  If the ReplayGain analysis is enabled then perform the analysis on the decoded data stream.</summary>
 		public bool DecodeOnTheFly
 		{
 			get { return NativeMethods.lame_get_decode_on_the_fly(context); }
 			set { Setter(NativeMethods.lame_set_decode_on_the_fly, value); }
 		}
+
 		/// <summary>Counters for gapless encoding</summary>
 		public int NoGapTotal
 		{
 			get { return NativeMethods.lame_get_nogap_total(context); }
 			set { Setter(NativeMethods.lame_set_nogap_total, value); }
 		}
+
 		/// <summary>Counters for gapless encoding</summary>
 		public int NoGapCurrentIndex
 		{
 			get { return NativeMethods.lame_get_nogap_currentindex(context); }
 			set { Setter(NativeMethods.lame_set_nogap_currentindex, value); }
 		}
+
 		/// <summary>Output bitrate</summary>
 		public int BitRate
 		{
 			get { return NativeMethods.lame_get_brate(context); }
 			set { Setter(NativeMethods.lame_set_brate, value); }
 		}
+
 		/// <summary>Output compression ratio</summary>
 		public float CompressionRatio
 		{
@@ -278,24 +292,28 @@ namespace LameDLLWrap
 			get { return NativeMethods.lame_get_copyright(context); }
 			set { Setter(NativeMethods.lame_set_copyright, value); }
 		}
+
 		/// <summary>Set output Original flag</summary>
 		public bool Original
 		{
 			get { return NativeMethods.lame_get_original(context); }
 			set { Setter(NativeMethods.lame_set_original, value); }
 		}
+
 		/// <summary>Set error protection.  Uses 2 bytes from each frame for CRC checksum</summary>
 		public bool ErrorProtection
 		{
 			get { return NativeMethods.lame_get_error_protection(context); }
 			set { Setter(NativeMethods.lame_set_error_protection, value); }
 		}
+
 		/// <summary>MP3 'private extension' bit.  Meaningless.</summary>
 		public bool Extension
 		{
 			get { return NativeMethods.lame_get_extension(context); }
 			set { Setter(NativeMethods.lame_set_extension, value); }
 		}
+
 		/// <summary>Enforce strict ISO compliance.</summary>
 		public bool StrictISO
 		{
