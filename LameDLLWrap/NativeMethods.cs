@@ -1111,21 +1111,10 @@ namespace LameDLLWrap
 #endregion
 
 #region 'printf' support for reporting functions
-		[DllImport("msvcrt.dll", CallingConvention = CallingConvention.Cdecl, CharSet = CharSet.Ansi, ThrowOnUnmappableChar = true, BestFitMapping = false)]
-		internal static extern int _vsnprintf_s(
-			[In, Out, MarshalAs(UnmanagedType.LPStr)] StringBuilder str,
-			int sizeOfBuffer,
-			int count,
-			[In, MarshalAs(UnmanagedType.LPStr)] String format,
-			[In] IntPtr va_args);
-
 		internal static string printf(string format, IntPtr va_args)
 		{
-			StringBuilder sb = new StringBuilder(4096);
-#pragma warning disable IDE0059 // Unnecessary assignment of a value
-			int res = _vsnprintf_s(sb, sb.Capacity, sb.Capacity - 2, format.Replace("\t", "\xFF"), va_args);
-#pragma warning restore IDE0059 // Unnecessary assignment of a value
-			return sb.ToString().Replace("\xFF", "\t");
+            //TODO: Implement this
+            return format;
 		}
 #endregion
 
