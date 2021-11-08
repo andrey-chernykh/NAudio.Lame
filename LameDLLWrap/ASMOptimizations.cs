@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -40,14 +40,14 @@ using size_t = System.UInt64;
 
 namespace LameDLLWrap
 {
-	/// <summary>Assembler optimizations</summary>
-	public enum ASMOptimizations : uint
-	{
-		/// <summary>Use MMX instructions</summary>
-		MMX = 1,
-		/// <summary>Use AMD 3DNow instructions</summary>
-		AMD_3DNow = 2,
-		/// <summary>Use SSE instructions</summary>
-		SSE = 3
-	}
+    /// <summary>Assembler optimizations</summary>
+    public enum ASMOptimizations : uint
+    {
+        /// <summary>Use MMX instructions</summary>
+        MMX = 1,
+        /// <summary>Use AMD 3DNow instructions</summary>
+        AMD_3DNow = 2,
+        /// <summary>Use SSE instructions</summary>
+        SSE = 3
+    }
 }

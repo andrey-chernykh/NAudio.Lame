@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -35,23 +35,23 @@
 
 namespace LameDLLWrap
 {
-	/// <summary>MPEG channel mode</summary>
-	public enum MPEGMode : uint
-	{
-		/// <summary>Stereo</summary>
-		Stereo = 0,
-		
-		/// <summary>Joint Stereo</summary>
-		JointStereo = 1,
-		
-		/// <summary>Dual Channel Stereo, like Stereo only... different?</summary>
-		// LAME does not support this
-		//DualChannel = 2,
+    /// <summary>MPEG channel mode</summary>
+    public enum MPEGMode : uint
+    {
+        /// <summary>Stereo</summary>
+        Stereo = 0,
 
-		/// <summary>Mono</summary>
-		Mono = 3,
-		
-		/// <summary>Undefined</summary>
-		NotSet = 4
-	}
+        /// <summary>Joint Stereo</summary>
+        JointStereo = 1,
+
+        /// <summary>Dual Channel Stereo, like Stereo only... different?</summary>
+        // LAME does not support this
+        //DualChannel = 2,
+
+        /// <summary>Mono</summary>
+        Mono = 3,
+
+        /// <summary>Undefined</summary>
+        NotSet = 4
+    }
 }

@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -41,35 +41,35 @@ using size_t = System.UInt64;
 
 namespace LameDLLWrap
 {
-	[StructLayout(LayoutKind.Sequential)]
-	public struct mp3data
-	{
-		/// <summary>1 if header was parsed and following data was computed</summary>
-		[MarshalAs(UnmanagedType.Bool)]
-		public bool header_parsed;
-		/// <summary>number of channels</summary>
-		public int stereo;
-		/// <summary>sample rate</summary>
-		public int samplerate;
-		/// <summary>bitrate</summary>
-		public int bitrate;
-		/// <summary>mp3 frame type</summary>
-		public int mode;
-		/// <summary>mp3 frame type</summary>
-		public int mode_ext;
-		/// <summary>number of samples per MP3 frame</summary>
-		public int framesize;
+    [StructLayout(LayoutKind.Sequential)]
+    public struct mp3data
+    {
+        /// <summary>1 if header was parsed and following data was computed</summary>
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool header_parsed;
+        /// <summary>number of channels</summary>
+        public int stereo;
+        /// <summary>sample rate</summary>
+        public int samplerate;
+        /// <summary>bitrate</summary>
+        public int bitrate;
+        /// <summary>mp3 frame type</summary>
+        public int mode;
+        /// <summary>mp3 frame type</summary>
+        public int mode_ext;
+        /// <summary>number of samples per MP3 frame</summary>
+        public int framesize;
 
-		// This data is only computed if mpglib detects a Xing VBR header
+        // This data is only computed if mpglib detects a Xing VBR header
 
-		/// <summary>number of samples in MP3 file</summary>
-		public ulong nsamp;
-		/// <summary>total number of frames in MP3 file</summary>
-		public int totalframes;
+        /// <summary>number of samples in MP3 file</summary>
+        public ulong nsamp;
+        /// <summary>total number of frames in MP3 file</summary>
+        public int totalframes;
 
-		// This data is not currently computed by mpglib
+        // This data is not currently computed by mpglib
 
-		/// <summary>frames decoded counter</summary>
-		public int framenum;
-	}
+        /// <summary>frames decoded counter</summary>
+        public int framenum;
+    }
 }

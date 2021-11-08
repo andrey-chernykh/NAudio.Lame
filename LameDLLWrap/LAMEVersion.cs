@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -42,49 +42,49 @@ using size_t = System.UInt64;
 
 namespace LameDLLWrap
 {
-	/// <summary>LAME DLL version information</summary>
-	[StructLayout(LayoutKind.Sequential)]
-	public class LAMEVersion
-	{
-		/* generic LAME version */
-		/// <summary>LAME library major version</summary>
-		public int major;
-		/// <summary>LAME library minor version</summary>
-		public int minor;
-		/// <summary>LAME library 'Alpha' version flag</summary>
-		[MarshalAs(UnmanagedType.Bool)]
-		public bool alpha;
-		/// <summary>LAME library 'Beta' version flag</summary>
-		[MarshalAs(UnmanagedType.Bool)]
-		public bool beta;
+    /// <summary>LAME DLL version information</summary>
+    [StructLayout(LayoutKind.Sequential)]
+    public class LAMEVersion
+    {
+        /* generic LAME version */
+        /// <summary>LAME library major version</summary>
+        public int major;
+        /// <summary>LAME library minor version</summary>
+        public int minor;
+        /// <summary>LAME library 'Alpha' version flag</summary>
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool alpha;
+        /// <summary>LAME library 'Beta' version flag</summary>
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool beta;
 
-		/// <summary>Psychoacoustic code major version</summary>
-		public int psy_major;
-		/// <summary>Psychoacoustic code minor version</summary>
-		public int psy_minor;
-		/// <summary>Psychoacoustic code 'Alpha' version flag</summary>
-		[MarshalAs(UnmanagedType.Bool)]
-		public bool psy_alpha;
-		/// <summary>Psychoacoustic code 'Beta' version flag</summary>
-		[MarshalAs(UnmanagedType.Bool)]
-		public bool psy_beta;
+        /// <summary>Psychoacoustic code major version</summary>
+        public int psy_major;
+        /// <summary>Psychoacoustic code minor version</summary>
+        public int psy_minor;
+        /// <summary>Psychoacoustic code 'Alpha' version flag</summary>
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool psy_alpha;
+        /// <summary>Psychoacoustic code 'Beta' version flag</summary>
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool psy_beta;
 
 #pragma warning disable IDE1006 // Naming Styles
 
-		/* compile time features */
-		// const char *features;    /* Don't make assumptions about the contents! */
-		[System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Marshalled value")]
-		private IntPtr features_ptr = IntPtr.Zero;
+        /* compile time features */
+        // const char *features;    /* Don't make assumptions about the contents! */
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0044:Add readonly modifier", Justification = "Marshalled value")]
+        private IntPtr features_ptr = IntPtr.Zero;
 
-		/// <summary>Compile-time features string</summary>
-		public string features
-		{
-			get
-			{
-				if (features_ptr != IntPtr.Zero)
-					return Marshal.PtrToStringAnsi(features_ptr);
-				return null;
-			}
-		}
-	}
+        /// <summary>Compile-time features string</summary>
+        public string features
+        {
+            get
+            {
+                if (features_ptr != IntPtr.Zero)
+                    return Marshal.PtrToStringAnsi(features_ptr);
+                return null;
+            }
+        }
+    }
 }

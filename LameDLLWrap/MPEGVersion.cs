@@ -1,4 +1,4 @@
-﻿#region MIT license
+#region MIT license
 // 
 // MIT license
 //
@@ -40,14 +40,14 @@ using size_t = System.UInt64;
 
 namespace LameDLLWrap
 {
-	/// <summary>MPEG wrapper version</summary>
-	public enum MPEGVersion : int
-	{
-		/// <summary>MPEG 2</summary>
-		MPEG2 = 0,
-		/// <summary>MPEG 1</summary>
-		MPEG1 = 1,
-		/// <summary>MPEG 2.5</summary>
-		MPEG2_5 = 2
-	}
+    /// <summary>MPEG wrapper version</summary>
+    public enum MPEGVersion : int
+    {
+        /// <summary>MPEG 2</summary>
+        MPEG2 = 0,
+        /// <summary>MPEG 1</summary>
+        MPEG1 = 1,
+        /// <summary>MPEG 2.5</summary>
+        MPEG2_5 = 2
+    }
 }
